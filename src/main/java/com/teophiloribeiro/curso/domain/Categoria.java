@@ -7,8 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+//CAMADA DE DOMINIO
 
-//Mapeamento da classe categoria
+//Mapeamento objeto relacional da classe categoria (nome e id)
 @Entity //entidade do JPA
 public class Categoria implements Serializable{
 	private static final long serialVersionUID = 1L;
