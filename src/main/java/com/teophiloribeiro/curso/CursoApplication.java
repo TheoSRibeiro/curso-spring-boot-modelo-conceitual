@@ -13,6 +13,7 @@ import com.teophiloribeiro.curso.domain.Cidade;
 import com.teophiloribeiro.curso.domain.Cliente;
 import com.teophiloribeiro.curso.domain.Endereco;
 import com.teophiloribeiro.curso.domain.Estado;
+import com.teophiloribeiro.curso.domain.ItemPedido;
 import com.teophiloribeiro.curso.domain.Pagamento;
 import com.teophiloribeiro.curso.domain.PagamentoComBoleto;
 import com.teophiloribeiro.curso.domain.PagamentoComCartão;
@@ -25,6 +26,7 @@ import com.teophiloribeiro.curso.repositories.CidadeRepository;
 import com.teophiloribeiro.curso.repositories.ClienteRepository;
 import com.teophiloribeiro.curso.repositories.EnderecoRepository;
 import com.teophiloribeiro.curso.repositories.EstadoRepository;
+import com.teophiloribeiro.curso.repositories.ItemPedidoRepository;
 import com.teophiloribeiro.curso.repositories.PagamentoRepository;
 import com.teophiloribeiro.curso.repositories.PedidoRepository;
 import com.teophiloribeiro.curso.repositories.ProdutoRepository;
@@ -34,7 +36,7 @@ import com.teophiloribeiro.curso.repositories.ProdutoRepository;
 @SpringBootApplication
 public class CursoApplication implements CommandLineRunner{
 	
-	//-----REPOSITORIES------
+	//-----REPOSITORIES------   -> salvar no BD
 	
 	//CATEGORIA E PRODUTO
 	@Autowired // instanciado automaticamente
@@ -60,6 +62,9 @@ public class CursoApplication implements CommandLineRunner{
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
 	
+	//ITEMPEDIDO
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 	
 	//-----REPOSITORIES------
 	
@@ -121,6 +126,18 @@ public class CursoApplication implements CommandLineRunner{
 		
 		cli1.getPedidos().addAll(Arrays.asList(ped1, ped2));
 		
+		//ITEMPEDIDO
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 200.00, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
+		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p3.getItens().addAll(Arrays.asList(ip2));
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
+		ped2.getItens().addAll(Arrays.asList(ip3));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		
+		
+		
 		//Repository categoria
 		categoriaRepository.saveAll(Arrays.asList(cat1,cat2));
 		
@@ -138,6 +155,9 @@ public class CursoApplication implements CommandLineRunner{
 		//Pedido e Pagamento
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
+		
+		//ItemPedido
+		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
 		
 		
 		
