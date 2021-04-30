@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 
 //para fazer o mapeamento da classe produto faz-se com @entity - entidade e @id
 @Entity
@@ -24,6 +26,9 @@ public class Produto implements Serializable{
 	private String nome;
 	private Double preco;
 	
+	
+	//Se ja foi buscado os elementos (produtos), nao buscar mais (@JsonBackReference), omitindo a lista de categorias para cada produto
+	@JsonBackReference
 	//Mapear os relacionamentos entre as tabelas, 
 	//nesse caso, muitos para muitos
 	@ManyToMany

@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 //CAMADA DE DOMINIO
 
 //Mapeamento objeto relacional da classe categoria (nome e id)
@@ -22,6 +24,8 @@ public class Categoria implements Serializable{
 	private Integer id;
 	private String nome;
 	
+	//Quando procurar os produtos em uma categoria, capturar somente os produtos da categoria desejada e parar a busca, nao ficar no loop, faz-se o comando @JSonManagedReference
+	@JsonManagedReference
 	//Mapeamento entre as classes Categoria e Produto
 	@ManyToMany(mappedBy = "categorias")
 	private List<Produto> produtos = new ArrayList<>();
