@@ -9,10 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.teophiloribeiro.curso.domain.Categoria;
 import com.teophiloribeiro.curso.domain.Cidade;
+import com.teophiloribeiro.curso.domain.Cliente;
+import com.teophiloribeiro.curso.domain.Endereco;
 import com.teophiloribeiro.curso.domain.Estado;
 import com.teophiloribeiro.curso.domain.Produto;
+import com.teophiloribeiro.curso.domain.enums.TipoCliente;
 import com.teophiloribeiro.curso.repositories.CategoriaRepository;
 import com.teophiloribeiro.curso.repositories.CidadeRepository;
+import com.teophiloribeiro.curso.repositories.ClienteRepository;
+import com.teophiloribeiro.curso.repositories.EnderecoRepository;
 import com.teophiloribeiro.curso.repositories.EstadoRepository;
 import com.teophiloribeiro.curso.repositories.ProdutoRepository;
 
@@ -23,17 +28,27 @@ public class CursoApplication implements CommandLineRunner{
 	
 	//-----REPOSITORIES------
 	
+	//CATEGORIA E PRODUTO
 	@Autowired // instanciado automaticamente
 	private CategoriaRepository categoriaRepository;
 	
 	@Autowired
 	private ProdutoRepository produtoRepository;
 	
+	//CIDADE E ESTADO
 	@Autowired
 	private CidadeRepository cidadeRepository;
 	
 	@Autowired
 	private EstadoRepository estadoRepository;
+	
+	//CLIENTE E ENDERECO
+	@Autowired
+	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
+	
 	
 	//-----REPOSITORIES------
 	
@@ -71,6 +86,15 @@ public class CursoApplication implements CommandLineRunner{
 		est1.getCidades().addAll(Arrays.asList(c1));
 		est2.getCidades().addAll(Arrays.asList(c2,c3));
 		
+		//CLIENTE E ENDERECO
+		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
+		cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
+		
+		Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto 203", "Jardim", "38220834", cli1, c1);
+		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", cli1, c2);
+		
+		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+		
 		
 		//Repository categoria
 		categoriaRepository.saveAll(Arrays.asList(cat1,cat2));
@@ -81,6 +105,10 @@ public class CursoApplication implements CommandLineRunner{
 		//Repository das cidades e estados
 		estadoRepository.saveAll(Arrays.asList(est1, est2));
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
+		
+		//Cliente e Endereco
+		clienteRepository.saveAll(Arrays.asList(cli1));
+		enderecoRepository.saveAll(Arrays.asList(e1, e2));
 		
 		
 		
