@@ -15,7 +15,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
@@ -32,7 +31,7 @@ public class Produto implements Serializable{
 	
 	
 	//Se ja foi buscado os elementos (produtos), nao buscar mais (@JsonBackReference), omitindo a lista de categorias para cada produto
-	@JsonBackReference
+	@JsonIgnore
 	//Mapear os relacionamentos entre as tabelas, 
 	//nesse caso, muitos para muitos
 	@ManyToMany
